@@ -1,0 +1,338 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* 配色：薄荷草地底 + 森林绿 + 星星金 */
+  --bg: #edf5e9;
+  --bg-deep: #dff0d8;
+  --ink: #14261b;
+  --ink-soft: #4d5e53;
+  --forest: #195736;
+  --gold: #ffbf2e;
+  --gold-deep: #e9a308;
+  --coral: #ea4464;
+  --card: #ffffff;
+
+  /* 任务卡分区渐变 */
+  --grad-oral: linear-gradient(135deg, #6dba8d 0%, #47a0a0 100%);
+  --grad-mult: linear-gradient(135deg, #edc31c 0%, #e48f15 100%);
+  --grad-word: linear-gradient(135deg, #4f86bb 0%, #7e549f 100%);
+  --grad-bonus: linear-gradient(135deg, #eeaacc 0%, #f08e4c 100%);
+  --grad-zi: linear-gradient(135deg, #ff9e7d 0%, #ea5150 100%);
+  --grad-ci: linear-gradient(135deg, #eeaacc 0%, #f08e4c 100%);
+  --grad-shi: linear-gradient(135deg, #b57edc 0%, #8e5aa8 100%);
+  --grad-letter: linear-gradient(135deg, #74c0fc 0%, #4f86bb 100%);
+  --grad-eword: linear-gradient(135deg, #38b2ac 0%, #2c7a7b 100%);
+  --grad-sent: linear-gradient(135deg, #a5b4fc 0%, #667eea 100%);
+
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family:
+    'Baloo 2',
+    -apple-system,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.font-kuai {
+  font-family: 'Baloo 2', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-weight: 700;
+}
+.font-num {
+  font-family: 'Baloo 2', 'PingFang SC', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============ 动效 ============ */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.5) rotate(-6deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.06) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+.pop-in {
+  animation: pop-in 0.45s var(--spring) both;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+.wiggle {
+  animation: wiggle 0.5s var(--spring) 2;
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.float-soft {
+  animation: float-soft 3.2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.breathe {
+  animation: breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes flame-flick {
+  0%,
+  100% {
+    transform: scale(1) rotate(-2deg);
+  }
+  50% {
+    transform: scale(1.12) rotate(3deg);
+  }
+}
+.flame-flick {
+  animation: flame-flick 0.9s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes star-fly {
+  0% {
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx, 60px), var(--fy, -120px)) scale(1.15) rotate(200deg);
+    opacity: 0;
+  }
+}
+.star-fly {
+  animation: star-fly 0.9s var(--spring) forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--cx, 0px), var(--cy, 240px)) rotate(var(--cr, 360deg)) scale(0.7);
+    opacity: 0;
+  }
+}
+.confetti-piece {
+  animation: confetti-fall var(--cd, 1.4s) cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+}
+
+@keyframes shake-no {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+.shake-no {
+  animation: shake-no 0.32s ease-in-out 2;
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.rise-in {
+  animation: rise-in 0.5s var(--spring) both;
+}
+
+@keyframes bubble-pop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.bubble-pop {
+  animation: bubble-pop 0.35s var(--spring) both;
+  transform-origin: bottom left;
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar-grow {
+  animation: bar-grow 0.7s var(--spring) both;
+  transform-origin: bottom;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+/* ============ 猫咪动效 ============ */
+@keyframes cat-blink {
+  0%,
+  91%,
+  98%,
+  100% {
+    transform: scaleY(1);
+  }
+  94.5% {
+    transform: scaleY(0.08);
+  }
+}
+.cat-blink {
+  animation: cat-blink 4.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes cat-blink-q {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.08);
+  }
+}
+.cat-blink-fast {
+  animation: cat-blink-q 0.45s ease-in-out 3;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes tail-idle-k {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+.tail-idle {
+  animation: tail-idle-k 3.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+}
+
+@keyframes tail-wag-k {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(11deg);
+  }
+}
+.tail-wag {
+  animation: tail-wag-k 0.5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+}
+
+/* ============ 组件基底 ============ */
+.card-soft {
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: 0 2px 0 rgba(20, 38, 27, 0.05), 0 10px 24px -12px rgba(25, 87, 54, 0.18);
+}
+
+.btn-chunky {
+  border-radius: 24px;
+  font-weight: 700;
+  box-shadow: 0 4px 0 rgba(20, 38, 27, 0.16);
+  transition: transform 0.12s var(--spring), box-shadow 0.12s var(--spring), filter 0.15s;
+  user-select: none;
+}
+.btn-chunky:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 1px 0 rgba(20, 38, 27, 0.16);
+}
+
+.key-btn {
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 4px 0 rgba(20, 38, 27, 0.1);
+  transition: transform 0.1s var(--spring), box-shadow 0.1s var(--spring), background 0.15s;
+  user-select: none;
+}
+.key-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(20, 38, 27, 0.1);
+  background: var(--bg-deep);
+}
+
+.doodle-bg {
+  background-image: radial-gradient(rgba(25, 87, 54, 0.10) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hide {
+  scrollbar-width: none;
+}
